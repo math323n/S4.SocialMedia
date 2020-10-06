@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace S4.SocialMedia.DataAccess
 {
     /// <summary>
-    /// Specialized version of <see cref="RepositoryBase{T}"/> for <see cref="AspNetPosts"/> 
-    /// to include <see cref="AspNetPosts.FkUser"/>
+    /// Specialized version of <see cref="RepositoryBase{T}"/> for <see cref="Post"/> 
+    /// to include <see cref="Post.FkUser"/>
     /// </summary>
     public class PostRepository: RepositoryBase<Post>
     {
@@ -19,7 +19,7 @@ namespace S4.SocialMedia.DataAccess
         /// <returns></returns>
         public override async Task<Post> GetByIdAsync(int id)
         {
-            return await context.Set<Post>().Include(p => p.FkUser).FirstOrDefaultAsync(p => p.PkId == id);
+            return await context.Set<Post>().Include(p => p.FkUser).FirstOrDefaultAsync(p => p.PkPostId == id);
         }
 
         /// <summary>
