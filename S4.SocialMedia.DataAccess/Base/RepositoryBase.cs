@@ -1,14 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using S4.SocialMedia.Entities.Models.Context;
+using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace S4.SocialMedia.DataAccess.Base
 {
     /// <summary>
-    /// Generic repository class for encapsulation of DbContext funtionality
+    /// Concreate implementation of <see cref="IRepositoryBase{TModel, TContext}"/>
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TContext"></typeparam>
     public class RepositoryBase<TModel, TContext>: IRepositoryBase<TModel>
         where TModel : class
         where TContext : DbContext, new()
@@ -94,7 +96,7 @@ namespace S4.SocialMedia.DataAccess.Base
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public virtual async Task<bool> Exists(int? id)
+        public virtual async Task<bool> ExistsAsync(int? id)
         {
             return await context.Set<TModel>().FindAsync(id) != null;
         }

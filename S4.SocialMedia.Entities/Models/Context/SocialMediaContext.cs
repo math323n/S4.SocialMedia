@@ -16,121 +16,197 @@ namespace S4.SocialMedia.Entities.Models.Context
         {
         }
 
-        public virtual DbSet<Comment> Comment { get; set; }
-        public virtual DbSet<Post> Post { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<AspNetComments> AspNetComments { get; set; }
+        public virtual DbSet<AspNetPosts> AspNetPosts { get; set; }
+        public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
+        public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-//warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TrollSpaceDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SocialMediaDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Comment>(entity =>
+            modelBuilder.Entity<AspNetComments>(entity =>
             {
-                entity.HasKey(e => e.PkCommentId);
+                entity.HasKey(e => e.PkId);
 
-                entity.Property(e => e.PkCommentId)
-                    .HasColumnName("PK_CommentId")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.PkId).HasColumnName("Pk_Id");
 
-                entity.Property(e => e.CreateDate)
-                    .HasColumnName("Create_date")
-                    .HasColumnType("datetime");
-
-                entity.Property(e => e.FkPostId).HasColumnName("FK_PostId");
-
-                entity.Property(e => e.FkUserId).HasColumnName("FK_UserId");
-
-                entity.Property(e => e.Image).HasMaxLength(255);
-
-                entity.Property(e => e.Text)
-                    .IsRequired()
-                    .HasMaxLength(1024);
-
-                entity.Property(e => e.UpdateDate)
-                    .HasColumnName("Update_date")
-                    .HasColumnType("datetime");
-
-                entity.HasOne(d => d.FkPost)
-                    .WithMany(p => p.Comment)
-                    .HasForeignKey(d => d.FkPostId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Comment_Post");
-
-                entity.HasOne(d => d.FkUser)
-                    .WithMany(p => p.Comment)
-                    .HasForeignKey(d => d.FkUserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Comment_User");
-            });
-
-            modelBuilder.Entity<Post>(entity =>
-            {
-                entity.HasKey(e => e.PkPostId);
-
-                entity.Property(e => e.PkPostId).HasColumnName("PK_PostId");
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnName("Create_date")
-                    .HasColumnType("datetime");
+                entity.Property(e => e.Created).HasColumnType("datetime");
 
                 entity.Property(e => e.Description)
-                    .HasMaxLength(255);
+                    .IsRequired()
+                    .HasMaxLength(300);
+
+                entity.Property(e => e.FkPostId).HasColumnName("Fk_PostId");
 
                 entity.Property(e => e.FkUserId)
-                .   IsRequired()
+                    .IsRequired()
                     .HasColumnName("Fk_UserId")
                     .HasMaxLength(450);
 
                 entity.Property(e => e.Image)
-                    .HasMaxLength(255);
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Title).HasMaxLength(255);
+                entity.Property(e => e.Updated).HasColumnType("datetime");
 
-                entity.Property(e => e.UpdateDate)
-                    .HasColumnName("Update_date")
-                    .HasColumnType("datetime");
+                entity.HasOne(d => d.FkPost)
+                    .WithMany(p => p.AspNetComments)
+                    .HasForeignKey(d => d.FkPostId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AspNetComment_AspNetPost");
 
                 entity.HasOne(d => d.FkUser)
-                    .WithMany(p => p.Post)
+                    .WithMany(p => p.AspNetComments)
                     .HasForeignKey(d => d.FkUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Post_User");
+                    .HasConstraintName("FK_AspNetComment_AspNetUser");
             });
 
-            modelBuilder.Entity<User>(entity =>
+            modelBuilder.Entity<AspNetPosts>(entity =>
             {
-                entity.HasKey(e => e.PkUserId);
+                entity.HasKey(e => e.PkId);
 
-                entity.Property(e => e.PkUserId).HasColumnName("PK_UserId");
+                entity.Property(e => e.PkId).HasColumnName("Pk_Id");
 
-                entity.Property(e => e.Birthdate).HasColumnType("datetime");
+                entity.Property(e => e.Created).HasColumnType("datetime");
 
-                entity.Property(e => e.Email)
+                entity.Property(e => e.Description)
                     .IsRequired()
-                    .HasMaxLength(255);
+                    .HasMaxLength(300)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Facebook).HasMaxLength(1024);
-
-                entity.Property(e => e.FirstName)
+                entity.Property(e => e.FkUserId)
                     .IsRequired()
-                    .HasMaxLength(255);
+                    .HasColumnName("Fk_UserId")
+                    .HasMaxLength(450);
 
-                entity.Property(e => e.Google).HasMaxLength(1024);
+                entity.Property(e => e.Image)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.LastName)
+                entity.Property(e => e.Title)
                     .IsRequired()
-                    .HasMaxLength(255);
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Phone).HasMaxLength(255);
+                entity.Property(e => e.Updated).HasColumnType("datetime");
 
-                entity.Property(e => e.Twitter).HasMaxLength(1024);
+                entity.HasOne(d => d.FkUser)
+                    .WithMany(p => p.AspNetPosts)
+                    .HasForeignKey(d => d.FkUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AspNetPost_AspNetUser");
+            });
+
+            modelBuilder.Entity<AspNetRoleClaims>(entity =>
+            {
+                entity.HasIndex(e => e.RoleId);
+
+                entity.Property(e => e.RoleId).IsRequired();
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.AspNetRoleClaims)
+                    .HasForeignKey(d => d.RoleId);
+            });
+
+            modelBuilder.Entity<AspNetRoles>(entity =>
+            {
+                entity.HasIndex(e => e.NormalizedName)
+                    .HasName("RoleNameIndex")
+                    .IsUnique()
+                    .HasFilter("([NormalizedName] IS NOT NULL)");
+
+                entity.Property(e => e.Name).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<AspNetUserClaims>(entity =>
+            {
+                entity.HasIndex(e => e.UserId);
+
+                entity.Property(e => e.UserId).IsRequired();
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserClaims)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUserLogins>(entity =>
+            {
+                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+
+                entity.HasIndex(e => e.UserId);
+
+                entity.Property(e => e.LoginProvider).HasMaxLength(128);
+
+                entity.Property(e => e.ProviderKey).HasMaxLength(128);
+
+                entity.Property(e => e.UserId).IsRequired();
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserLogins)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUserRoles>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.RoleId });
+
+                entity.HasIndex(e => e.RoleId);
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.AspNetUserRoles)
+                    .HasForeignKey(d => d.RoleId);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserRoles)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUserTokens>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+
+                entity.Property(e => e.LoginProvider).HasMaxLength(128);
+
+                entity.Property(e => e.Name).HasMaxLength(128);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserTokens)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUsers>(entity =>
+            {
+                entity.HasIndex(e => e.NormalizedEmail)
+                    .HasName("EmailIndex");
+
+                entity.HasIndex(e => e.NormalizedUserName)
+                    .HasName("UserNameIndex")
+                    .IsUnique()
+                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
+
+                entity.Property(e => e.Email).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+
+                entity.Property(e => e.UserName).HasMaxLength(256);
             });
 
             OnModelCreatingPartial(modelBuilder);

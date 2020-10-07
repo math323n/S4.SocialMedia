@@ -1,4 +1,4 @@
-﻿@model IEnumerable<S4.SocialMedia.Entities.Models.Post>
+﻿@model IEnumerable<S4.SocialMedia.Entities.Models.AspNetPosts>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,19 +16,19 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdateDate)
+                @Html.DisplayNameFor(model => model.Image)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsEdited)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Updated)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FkUser)
@@ -43,27 +43,27 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdateDate)
+                @Html.DisplayFor(modelItem => item.Image)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsEdited)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FkUser.Email)
+                @Html.DisplayFor(modelItem => item.Created)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.PkPostId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PkPostId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PkPostId">Delete</a>
+                @Html.DisplayFor(modelItem => item.Updated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FkUser.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PkId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PkId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PkId">Delete</a>
             </td>
         </tr>
 }

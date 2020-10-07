@@ -2,35 +2,28 @@
 using S4.SocialMedia.DataAccess.Base;
 using S4.SocialMedia.Entities.Models;
 using S4.SocialMedia.Entities.Models.Context;
-
+using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace S4.SocialMedia.DataAccess
 {
     /// <summary>
-    /// Specialized version of <see cref="RepositoryBase{T}"/> for <see cref="Post"/> 
-    /// to include <see cref="Post.FkUser"/>
+    /// Specialization of <see cref="RepositoryBase{TModel, TContext}"/> for inclusion of <see cref="AspNetPosts.FkUser"/>
     /// </summary>
-    public class PostRepository: RepositoryBase<Post, SocialMediaContext>
+    public class PostRepository: RepositoryBase<AspNetPosts, SocialMediaContext>
     {
-        /// <summary>
-        /// Gets an item by ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public override async Task<Post> GetByIdAsync(int? id)
+        #region Overrides
+        public override async Task<AspNetPosts> GetByIdAsync(int? id)
         {
-            return await context.Set<Post>().Include(p => p.FkUser).FirstOrDefaultAsync(p => p.PkPostId == id);
+            return await context.Set<AspNetPosts>().Include(p => p.FkUser).FirstOrDefaultAsync(p => p.PkId == id);
         }
 
-        /// <summary>
-        /// Gets all the items
-        /// </summary>
-        /// <returns></returns>
-        public override async Task<IEnumerable<Post>> GetAllAsync()
+        public override async Task<IEnumerable<AspNetPosts>> GetAllAsync()
         {
-            return await context.Set<Post>().Include(p => p.FkUser).ToListAsync();
+            return await context.Set<AspNetPosts>().Include(p => p.FkUser).ToListAsync();
         }
+        #endregion
     }
 }

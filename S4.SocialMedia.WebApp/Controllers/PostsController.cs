@@ -12,11 +12,11 @@ using S4.SocialMedia.Entities.Models.Context;
 
 namespace S4.SocialMedia.WebApp.Controllers
 {
-    public class PostController : Controller
+    public class PostsController: Controller
     {
         private readonly PostRepository repo;
 
-        public PostController(PostRepository postRepository)
+        public PostsController(PostRepository postRepository)
         {
             repo = postRepository;
         }
@@ -24,7 +24,7 @@ namespace S4.SocialMedia.WebApp.Controllers
         // GET: AspNetPosts
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Post> socialMediaContext = await repo.GetAllAsync();
+            IEnumerable<AspNetPosts> socialMediaContext = await repo.GetAllAsync();
             return View(socialMediaContext);
         }
 
@@ -36,14 +36,14 @@ namespace S4.SocialMedia.WebApp.Controllers
                 return NotFound();
             }
 
-            Post post = await repo.GetByIdAsync(id);
+            AspNetPosts aspNetPosts = await repo.GetByIdAsync(id);
 
-            if(post == null)
+            if(aspNetPosts == null)
             {
                 return NotFound();
             }
 
-            return View(post);
+            return View(aspNetPosts);
         }
 
         // GET: AspNetPosts/Create
@@ -57,15 +57,14 @@ namespace S4.SocialMedia.WebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PkPostId,FkUserId,Title,Image,Description")] Post post)
+        public async Task<IActionResult> Create([Bind("PkId,Title,Description,Image,IsEdited,Created,Updated,FkUserId")] AspNetPosts aspNetPosts)
         {
             if(ModelState.IsValid)
             {
-                post.CreateDate = DateTime.Now;
-                post.UpdateDate = DateTime.Now;
-                post.FkUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                aspNetPosts.Created = DateTime.Now;
+                aspNetPosts.FkUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                await repo.AddAsync(post);
+                await repo.AddAsync(aspNetPosts);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -81,14 +80,14 @@ namespace S4.SocialMedia.WebApp.Controllers
                 return NotFound();
             }
 
-            Post post = await repo.GetByIdAsync(id);
+            AspNetPosts aspNetPosts = await repo.GetByIdAsync(id);
 
-            if(post == null)
+            if(aspNetPosts == null)
             {
                 return NotFound();
             }
 
-            return View(post);
+            return View(aspNetPosts);
         }
 
         // POST: AspNetPosts/Edit/5
@@ -96,9 +95,9 @@ namespace S4.SocialMedia.WebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PkPostId,FkUserId,Title,Image,Description,CreateDate,UpdateDate,IsEdited")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("PkId,Title,Description,Image,IsEdited,Created,Updated,FkUserId")] AspNetPosts aspNetPosts)
         {
-            if(id != post.PkPostId)
+            if(id != aspNetPosts.PkId)
             {
                 return NotFound();
             }
@@ -107,20 +106,20 @@ namespace S4.SocialMedia.WebApp.Controllers
             {
                 try
                 {
-                    Post originalPost = await repo.GetByIdAsync(id);
+                    AspNetPosts originalPost = await repo.GetByIdAsync(id);
 
                     originalPost.IsEdited = true;
-                    originalPost.CreateDate = DateTime.Now;
+                    originalPost.Updated = DateTime.Now;
 
-                    originalPost.Title = post.Title;
-                    originalPost.Description = post.Description;
-                    originalPost.Image = post.Image;
+                    originalPost.Title = aspNetPosts.Title;
+                    originalPost.Description = aspNetPosts.Description;
+                    originalPost.Image = aspNetPosts.Image;
 
                     await repo.UpdateAsync(originalPost);
                 }
                 catch(DbUpdateConcurrencyException)
                 {
-                    if(!await PostExists(post.PkPostId))
+                    if(!await AspNetPostsExists(aspNetPosts.PkId))
                     {
                         return NotFound();
                     }
@@ -143,14 +142,14 @@ namespace S4.SocialMedia.WebApp.Controllers
                 return NotFound();
             }
 
-            Post posts = await repo.GetByIdAsync(id);
+            AspNetPosts aspNetPosts = await repo.GetByIdAsync(id);
 
-            if(posts == null)
+            if(aspNetPosts == null)
             {
                 return NotFound();
             }
 
-            return View(posts);
+            return View(aspNetPosts);
         }
 
         // POST: AspNetPosts/Delete/5
@@ -158,16 +157,16 @@ namespace S4.SocialMedia.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            Post post = await repo.GetByIdAsync(id);
+            AspNetPosts aspNetPosts = await repo.GetByIdAsync(id);
 
-            await repo.DeleteAsync(post);
+            await repo.DeleteAsync(aspNetPosts);
 
             return RedirectToAction(nameof(Index));
         }
 
-        private async Task<bool> PostExists(int id)
+        private async Task<bool> AspNetPostsExists(int id)
         {
-            return await repo.Exists(id);
+            return await repo.ExistsAsync(id);
         }
     }
 }

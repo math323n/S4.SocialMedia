@@ -1,14 +1,15 @@
-﻿using S4.SocialMedia.Entities.Models.Context;
-
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace S4.SocialMedia.DataAccess.Base
 {
     /// <summary>
-    /// Base repository interface
+    /// Generic interface specifying encapsulation of DbContext funtionality
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TContext"></typeparam>
     public interface IRepositoryBase<TModel>
     {
         Task AddAsync(TModel t);
@@ -16,6 +17,6 @@ namespace S4.SocialMedia.DataAccess.Base
         Task<IEnumerable<TModel>> GetAllAsync();
         Task UpdateAsync(TModel t);
         Task DeleteAsync(TModel t);
-        Task<bool> Exists(int? id);
+        Task<bool> ExistsAsync(int? id);
     }
 }

@@ -36,7 +36,6 @@ namespace S4.SocialMedia.WebApp
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-
             services.AddScoped<PostRepository>();
 
             services.AddAuthentication()
