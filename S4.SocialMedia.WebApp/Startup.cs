@@ -12,6 +12,7 @@ using S4.SocialMedia.WebApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using S4.SocialMedia.DataAccess;
 
 namespace S4.SocialMedia.WebApp
 {
@@ -34,6 +35,9 @@ namespace S4.SocialMedia.WebApp
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+
+            services.AddScoped<PostRepository>();
 
             services.AddAuthentication()
                 .AddGoogle(options =>

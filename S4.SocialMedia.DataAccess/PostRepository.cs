@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using S4.SocialMedia.DataAccess.Base;
 using S4.SocialMedia.Entities.Models;
+using S4.SocialMedia.Entities.Models.Context;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,14 +12,14 @@ namespace S4.SocialMedia.DataAccess
     /// Specialized version of <see cref="RepositoryBase{T}"/> for <see cref="Post"/> 
     /// to include <see cref="Post.FkUser"/>
     /// </summary>
-    public class PostRepository: RepositoryBase<Post>
+    public class PostRepository: RepositoryBase<Post, SocialMediaContext>
     {
         /// <summary>
         /// Gets an item by ID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public override async Task<Post> GetByIdAsync(int id)
+        public override async Task<Post> GetByIdAsync(int? id)
         {
             return await context.Set<Post>().Include(p => p.FkUser).FirstOrDefaultAsync(p => p.PkPostId == id);
         }

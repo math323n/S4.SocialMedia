@@ -11,7 +11,7 @@ namespace S4.SocialMedia.Entities.Models
         }
 
         public int PkPostId { get; set; }
-        public int FkUserId { get; set; }
+        public string FkUserId { get; set; }
         public string Title { get; set; }
         public string Image { get; set; }
         public string Description { get; set; }

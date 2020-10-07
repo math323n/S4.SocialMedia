@@ -11,7 +11,7 @@ namespace S4.SocialMedia.Entities.Models
             Post = new HashSet<Post>();
         }
 
-        public int PkUserId { get; set; }
+        public string PkUserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
