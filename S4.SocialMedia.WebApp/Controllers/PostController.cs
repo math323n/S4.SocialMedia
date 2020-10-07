@@ -57,11 +57,12 @@ namespace S4.SocialMedia.WebApp.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PkPostId,FkUserId,Title,Image,Description,CreateDate,UpdateDate,IsEdited")] Post post)
+        public async Task<IActionResult> Create([Bind("PkPostId,FkUserId,Title,Image,Description")] Post post)
         {
             if(ModelState.IsValid)
             {
                 post.CreateDate = DateTime.Now;
+                post.UpdateDate = DateTime.Now;
                 post.FkUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                 await repo.AddAsync(post);
