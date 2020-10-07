@@ -9,7 +9,7 @@ namespace S4.SocialMedia.DataAccess.Base
     /// Generic repository class for encapsulation of DbContext funtionality
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class RepositoryBase<TModel, TContext>: IRepositoryBase<TModel, TContext>
+    public class RepositoryBase<TModel, TContext>: IRepositoryBase<TModel>
         where TModel : class
         where TContext : DbContext, new()
     {
@@ -24,7 +24,7 @@ namespace S4.SocialMedia.DataAccess.Base
         /// <param name="context"></param>
         public RepositoryBase(TContext context)
         {
-            Context = context;
+            this.context = context;
         }
 
         /// <summary>
@@ -33,17 +33,6 @@ namespace S4.SocialMedia.DataAccess.Base
         public RepositoryBase()
         {
             context = new TContext();
-        }
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// Database Context
-        /// </summary>
-        public virtual TContext Context
-        {
-            get { return context; }
-            set { context = value; }
         }
         #endregion
 

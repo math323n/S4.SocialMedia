@@ -9,10 +9,8 @@ namespace S4.SocialMedia.DataAccess.Base
     /// Base repository interface
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IRepositoryBase<TModel, TContext>
+    public interface IRepositoryBase<TModel>
     {
-        TContext Context { get; set; }
-
         Task AddAsync(TModel t);
         Task<TModel> GetByIdAsync(int? id);
         Task<IEnumerable<TModel>> GetAllAsync();
