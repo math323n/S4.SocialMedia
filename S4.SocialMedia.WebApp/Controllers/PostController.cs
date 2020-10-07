@@ -36,14 +36,14 @@ namespace S4.SocialMedia.WebApp.Controllers
                 return NotFound();
             }
 
-            Post aspNetPosts = await repo.GetByIdAsync(id);
+            Post post = await repo.GetByIdAsync(id);
 
-            if(aspNetPosts == null)
+            if(post == null)
             {
                 return NotFound();
             }
 
-            return View(aspNetPosts);
+            return View(post);
         }
 
         // GET: AspNetPosts/Create
