@@ -1,4 +1,5 @@
 ﻿using S4.SocialMedia.Entities.Models.Context;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,5 +18,6 @@ namespace S4.SocialMedia.DataAccess.Base
         Task<IEnumerable<T>> GetAllAsync();
         Task UpdateAsync();
         Task DeleteAsync(T t);
+        Task<bool> Exists(int? id);
     }
 }

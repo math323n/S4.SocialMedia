@@ -91,5 +91,14 @@ namespace S4.SocialMedia.DataAccess.Base
             context.Set<T>().Remove(t);
             await context.SaveChangesAsync();
         }
+        /// <summary>
+        /// Checks if an item exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public virtual async Task<bool> Exists(int? id)
+        {
+            return await context.Set<T>().FindAsync(id) != null;
+        }
     }
 }
