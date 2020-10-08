@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - TrollSpace</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-   
+
 </head>
 <body>
     <header>
@@ -34,11 +34,42 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1 sidebar">
+                <div class="d-flex flex-column position-fixed vh-100 align-items-center">
+                    <img src="~/img/trollface.png" height="100" width="100">
+                    <marquee direction="right" height="30" width="100" class="text-danger">U mad?</marquee>
+                    <img src="~/img/trollface.png" height="100" width="100" />
+                    <marquee direction="left" height="30" width="100" class="text-warning">U mad?</marquee>
+                    <img src="~/img/trollface.png" height="100" width="100" />
+                    <marquee direction="up" height="100" width="100" class="text-success">U mad?</marquee>
+                    <img src="~/img/trollface.png" height="100" width="100" />
+                    <marquee direction="down" height="100" width="100">U mad?</marquee>
+                </div>
+            </div>
+            <div class="col-sm">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+            <div class="col-1 sidebar">
+                <div class="d-flex flex-column position-fixed vh-100  align-items-center">
+                    <img src="~/img/trollface.png" height="100" width="100">
+                    <marquee direction="right" height="30" width="100" class="text-danger">U mad?</marquee>
+                    <img src="~/img/trollface.png" height="100" width="100" />
+                    <marquee direction="left" height="30" width="100" class="text-warning">U mad?</marquee>
+                    <img src="~/img/trollface.png" height="100" width="100" />
+                    <marquee direction="up" height="100" width="100" class="text-success">U mad?</marquee>
+                    <img src="~/img/trollface.png" height="100" width="100" />
+                    <marquee direction="down" height="100" width="100">U mad?</marquee>
+                </div>
+            </div>
+        </div>
     </div>
+
+
 
     <footer class="border-top footer text-muted">
         <div class="container">
