@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using S4.SocialMedia.DataAccess;
+using S4.SocialMedia.DataAccess.Base;
 using S4.SocialMedia.Entities.Models;
-using S4.SocialMedia.Entities.Models.Context;
 
 namespace S4.SocialMedia.WebApp.Controllers
 {
     public class PostsController: Controller
     {
-        private readonly PostRepository repo;
+        private readonly IRepositoryBase<AspNetPosts> repo;
 
-        public PostsController(PostRepository postRepository)
+        public PostsController(IRepositoryBase<AspNetPosts> postRepository)
         {
             repo = postRepository;
         }
