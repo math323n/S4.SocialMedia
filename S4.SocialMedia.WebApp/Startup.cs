@@ -39,7 +39,6 @@ namespace S4.SocialMedia.WebApp
             services.AddRazorPages();
 
             services.AddScoped(typeof(IRepositoryBase<AspNetPosts>), typeof(PostRepository));
-           
 
             services.AddAuthentication()
                 .AddGoogle(options =>
@@ -50,12 +49,12 @@ namespace S4.SocialMedia.WebApp
                     options.ClientId = googleAuthNSection["ClientId"];
                     options.ClientSecret = googleAuthNSection["ClientSecret"];
                 });
-            
-    services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
-    {
-        microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ClientId"];
-        microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
-    });
+
+            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = Configuration["Authentication:Microsoft:ClientId"];
+                microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:ClientSecret"];
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
