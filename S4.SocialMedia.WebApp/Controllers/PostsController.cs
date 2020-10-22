@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using S4.SocialMedia.DataAccess;
 using S4.SocialMedia.DataAccess.Base;
 using S4.SocialMedia.Entities.Models;
 

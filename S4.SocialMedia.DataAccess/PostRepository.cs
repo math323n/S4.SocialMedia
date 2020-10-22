@@ -2,9 +2,7 @@
 using S4.SocialMedia.DataAccess.Base;
 using S4.SocialMedia.Entities.Models;
 using S4.SocialMedia.Entities.Models.Context;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace S4.SocialMedia.DataAccess

@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using S4.SocialMedia.WebApp.Data;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +32,7 @@ namespace S4.SocialMedia.WebApp
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddScoped(typeof(IRepositoryBase<AspNetPosts>), typeof(PostRepository));
+            services.AddScoped<IRepositoryBase<AspNetPosts>, PostRepository>();
 
             services.AddAuthentication()
                 .AddGoogle(options =>
