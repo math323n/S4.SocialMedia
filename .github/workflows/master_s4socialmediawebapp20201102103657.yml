@@ -31,5 +31,5 @@ jobs:
       with:
         app-name: 's4socialmediawebapp20201102103657'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_ee1a82879cc048b998a57adf892b1000 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_a87853978c174ff7a1611c7668080842 }}
         package: ${{env.DOTNET_ROOT}}/myapp 
