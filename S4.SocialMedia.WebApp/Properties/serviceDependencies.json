@@ -3,6 +3,14 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "DefaultConnection"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "SocialMediaConnection"
+    },
+    "secrets1": {
+      "type": "secrets",
+      "connectionId": "VaultUri"
     }
   }
 }
